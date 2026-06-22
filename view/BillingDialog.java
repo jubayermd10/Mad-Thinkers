@@ -1,7 +1,7 @@
 package view;
 
 import controllers.BillingController;
-import controllers.InventoryController;  // ✅ Added missing import
+import controllers.InventoryController; 
 import models.*;
 import dao.CSVHandler;
 import javax.swing.*;
@@ -10,19 +10,19 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class BillingDialog extends JDialog {
-    private final Employee employee;  // ✅ Made final
+    private final Employee employee; 
     private BillingController billingController;
     private JTable cartTable;
     private DefaultTableModel cartModel;
     private JLabel totalLabel;
     private JTextField itemIdField, quantityField;
     private boolean billGenerated = false;
-    private ArrayList<Item> items;  // ✅ Added missing items field
+    private ArrayList<Item> items;  
 
     public BillingDialog(JFrame parent, Employee employee, InventoryController inventoryController) {
         super(parent, "Generate Bill - " + employee.getName(), true);
         this.employee = employee;
-        this.items = inventoryController.getAllItems();  // ✅ Store items reference
+        this.items = inventoryController.getAllItems(); 
         this.billingController = new BillingController(
                 inventoryController.getAllItems(),
                 employee.getId()
@@ -58,7 +58,7 @@ public class BillingDialog extends JDialog {
         scrollPane.setBorder(BorderFactory.createTitledBorder("Shopping Cart"));
         mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // Bottom Panel (Total + Buttons)
+        
         JPanel bottomPanel = createBottomPanel();
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -79,12 +79,12 @@ public class BillingDialog extends JDialog {
 
         JButton addBtn = new JButton("Add to Cart");
         addBtn.setBackground(new Color(46, 204, 113));
-        addBtn.setForeground(Color.WHITE);  // ✅ Fixed color
+        addBtn.setForeground(Color.BLACK);  
         addBtn.addActionListener(e -> addToCart());
 
         JButton removeBtn = new JButton("Remove Selected");
         removeBtn.setBackground(new Color(231, 76, 60));
-        removeBtn.setForeground(Color.WHITE);  // ✅ Fixed color
+        removeBtn.setForeground(Color.BLACK);  
         removeBtn.addActionListener(e -> removeFromCart());
 
         panel.add(addBtn);
@@ -106,17 +106,17 @@ public class BillingDialog extends JDialog {
 
         JButton clearBtn = new JButton("Clear Cart");
         clearBtn.setBackground(new Color(241, 196, 15));
-        clearBtn.setForeground(Color.WHITE);  // ✅ Fixed color
+        clearBtn.setForeground(Color.BLACK);  
         clearBtn.addActionListener(e -> clearCart());
 
         JButton generateBtn = new JButton("Generate Invoice");
         generateBtn.setBackground(new Color(155, 89, 182));
-        generateBtn.setForeground(Color.WHITE);  // ✅ Fixed color
+        generateBtn.setForeground(Color.BLACK);  
         generateBtn.addActionListener(e -> generateInvoice());
 
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.setBackground(new Color(149, 165, 166));
-        cancelBtn.setForeground(Color.WHITE);  // ✅ Fixed color
+        cancelBtn.setForeground(Color.BLACK);  
         cancelBtn.addActionListener(e -> dispose());
 
         buttonPanel.add(clearBtn);
@@ -277,7 +277,7 @@ public class BillingDialog extends JDialog {
         status.append("                    STOCK STATUS                          \n");
         status.append("══════════════════════════════════════════════════════════\n\n");
 
-        // ✅ Use 'items' field instead of undefined variable
+        
         for (Item item : items) {
             String stockStatus;
             if (item.getStock() == 0) stockStatus = "OUT OF STOCK!";
@@ -295,7 +295,7 @@ public class BillingDialog extends JDialog {
     }
 
     private Item findItemById(String id) {
-        // ✅ Use 'items' field instead of undefined variable
+       
         for (Item item : items) {
             if (item.getItemId().equalsIgnoreCase(id)) return item;
         }
